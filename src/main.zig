@@ -1,4 +1,6 @@
 const std = @import("std");
+const builtin = @import("builtin");
+
 const data = @import("data.zig");
 
 // Colors for output
@@ -9,6 +11,7 @@ const WHITE = "\x1b[37;1m";
 const DIM = "\x1b[2m";
 const BOLD = "\x1b[1m";
 const RESET = "\x1b[0m";
+const NEWLINE = if (builtin.os.tag == .windows) "\r\n" else "\n";
 
 pub fn main() !void {
     // get the standard output for writing
@@ -21,14 +24,16 @@ pub fn main() !void {
     const d = rand.intRangeAtMost(u8, 0, data.builtins.len);
 
     // pick a random builtin
-    const builtin = data.builtins[d];
+    const function = data.builtins[d];
 
     // print out the documentation
-    try std.fmt.format(stdout, "{s}{s}{s}\n\n{s}\n", .{
+    try std.fmt.format(stdout, "{s}{s}{s}{s}{s}{s}", .{
         BOLD,
-        builtin.signature,
+        function.signature,
         BOLD ++ RESET,
-        builtin.documentation,
+        NEWLINE ++ NEWLINE,
+        function.documentation,
+        NEWLINE,
     });
 
     // always flush when you are done
