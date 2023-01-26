@@ -7,6 +7,7 @@ const GREEN = "\x1b[32;1m";
 const CYAN = "\x1b[36;1m";
 const WHITE = "\x1b[37;1m";
 const DIM = "\x1b[2m";
+const BOLD = "\x1b[1m";
 const RESET = "\x1b[0m";
 
 pub fn main() !void {
@@ -23,10 +24,10 @@ pub fn main() !void {
     const builtin = data.builtins[d];
 
     // print out the documentation
-    try std.fmt.format(stdout, "{s}{s}{s}:\n{s}\n", .{
-        GREEN,
-        builtin.name,
-        GREEN ++ RESET,
+    try std.fmt.format(stdout, "{s}{s}{s}\n\n{s}\n", .{
+        BOLD,
+        builtin.signature,
+        BOLD ++ RESET,
         builtin.documentation,
     });
 
