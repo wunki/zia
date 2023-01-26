@@ -1,6 +1,14 @@
 const std = @import("std");
 const data = @import("data.zig");
 
+// Colors for output
+const RED = "\x1b[31;1m";
+const GREEN = "\x1b[32;1m";
+const CYAN = "\x1b[36;1m";
+const WHITE = "\x1b[37;1m";
+const DIM = "\x1b[2m";
+const RESET = "\x1b[0m";
+
 pub fn main() !void {
     // get the standard output for writing
     const stdout_file = std.io.getStdOut().writer();
@@ -15,8 +23,12 @@ pub fn main() !void {
     const builtin = data.builtins[d];
 
     // print out the documentation
-    try stdout.print("{s}\n", .{builtin.name});
-    try stdout.print("{s}\n", .{builtin.documentation});
+    try std.fmt.format(stdout, "{s}{s}{s}:\n{s}\n", .{
+        GREEN,
+        builtin.name,
+        GREEN ++ RESET,
+        builtin.documentation,
+    });
 
     // always flush when you are done
     try bw.flush();
