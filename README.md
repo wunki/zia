@@ -10,3 +10,6 @@ This is all you get:
 
 ![Screenshot of Zia in action](/assets/example.png?raw=true "Screenshot of Zia in action")
 
+## Licensing
+
+Zia is released under the MIT license.
